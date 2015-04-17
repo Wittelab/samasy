@@ -1,6 +1,7 @@
 # Samasy
 A **Sa**mple **Ma**nagement **Sy**stem for 96 well plates, including robotic transfer.
 
+![Image of Interface](https://octodex.github.com/lucidv01d/samasy/interface.png)
 
 ## Install Dependencies 
 ### RVM and Ruby 2.0.0
