@@ -1,0 +1,15 @@
+div
+  h1 class="center" = @message
+  img class="center" style="display:block" src="/404.jpg" alt="Page Not Found (404)."
+
+javascript:
+  // Show content div (prevents 'flash' while image is being drawn)
+  $('#selection').empty()
+                 .css('background-color',"#f9f9f9");
+  $("<button>").addClass("btn btn-primary btn-lg btn-block")
+               .css("margin-top","20px")
+               .text("Back")
+               .appendTo('#selection');
+  $('#selection .btn').on("click", function(){ window.history.back(); });
+
+  $('#content').fadeIn(700);

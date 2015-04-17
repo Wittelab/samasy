@@ -1,0 +1,41 @@
+link type="text/css" href="/css/plate.css" rel="stylesheet" media="screen"
+div id="header"
+  h1 class="center" = @plate.plateID
+div id="plate" class="plate" data-id=@plate.plateID
+div
+
+
+  -if @plate.type == "Destination" and @plate.isComplete
+     ul class="batch-list"
+       li
+         | This plate is finished! You can now download the
+         a href="/titan_file/#{@plate.name}"
+           i class="fa fa-download"   Gene Titan File
+  - unless @batch_names.empty?
+     ul class="batch-list"
+       li
+         | In batches:
+       - for batch in @batch_names do
+         li
+           a class="batch-name" href="/batch/#{batch}" = batch
+
+javascript:
+  var plates = [];
+  $(document).ready(function()
+  {
+
+    // Draw the plate
+    plate = draw_plate('plate');
+    plates.push(plate);
+
+    // Set a click function on each of the wells (get_well_info callback)
+    plate.wells.each(function(i) { this.click(function() { get_well_info('well-info', plate.name, this); return false;}) });
+
+    // Color the wells by status (default attribute coloring)
+    color_plates_by('status', [plate], true);
+
+    // Show content div (prevents 'flash' while image is being drawn)
+    $('#content').delay(50).fadeIn(100);
+    //$('#content').delay(5500).show();
+
+  });

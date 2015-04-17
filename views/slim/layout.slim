@@ -1,0 +1,63 @@
+html lang="en"
+  head
+    meta charset="utf-8"
+    meta content="width=device-width, initial-scale=1" name="viewport"
+
+    title Sample Management System (Samasy)
+    /! Bootstrap core CSS
+    link type="text/css" rel="stylesheet" media="screen" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css"
+    link type="text/css" rel="stylesheet" media="screen" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css"
+    /! Load the site specific CSS
+    link type="text/css" rel="stylesheet" media="screen" href="/css/site.css"
+
+    /! Load javascript libraries
+    script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"
+    script src="http://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"
+    script src="http://cdnjs.cloudflare.com/ajax/libs/svg.js/0.32/svg.js"
+    script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.2/d3.min.js"
+    script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"
+    script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js"
+    script src="http://cdnjs.cloudflare.com/ajax/libs/chroma-js/0.6.3/chroma.min.js"
+    /! Locally loaded javascript libraries
+    script src="/list.js"
+    script src="/colorbrewer.min.js"
+    script src="/plate.js"
+
+  body
+    == slim :'slim/_menu'
+    
+    div class="container-fluid" style="margin-top:63px;"
+      div class="row"
+        - if !(@full_width || false)
+          div id="selection" class="col-md-3" style="border-right: 1px solid #eee"
+            -if defined? @plate_names
+              == slim :'slim/_plate_selection'
+            -elsif defined? @batch_names and not @batch_names.empty?
+              == slim :'slim/_batch_selection'
+          div id="content" class="col-md-9" style="display:none"
+            == yield
+        -else 
+          div class="col-md-10 col-md-offset-1"
+            == yield
+
+  footer
+    p © Wittelab 2015
+
+
+javascript:
+  $(document).ready(function()
+  {
+    // Make selection panel take up rest of height
+    $('#selection').css('height',window.innerHeight - $('.navbar').height()-1);
+    // Give it a greyed out apperance if it is empty.
+    if( $('#selection').is(':empty') )
+    {
+      $('#selection').css('background-color',"#f9f9f9");
+      $('#content').fadeIn(400);
+      var js = document.createElement("script");
+      js.type = "text/javascript";
+      js.src = "/matrix.js";
+      document.body.appendChild(js);
+    }
+
+  });

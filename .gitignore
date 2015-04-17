@@ -1,0 +1,9 @@
+/db/daybreak.db
+/db/samasy.db
+/db/gene_titan_files/*
+
+/tmp/*
+/logs/*
+
+Gemfile.lock
+.sass-cache

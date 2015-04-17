@@ -1,0 +1,85 @@
+$plate-background-color:  rgba(0,0,0,.01)
+$aqua-blue:               rgba(0,75,108,1.0)
+$gray:                    #bbb
+$border-radius:           5px
+
+table#plate-layout
+  min-width:              760px
+  max-width:              765px
+  margin-left:            auto
+  margin-right:           auto
+  border:                 none
+  margin-top:             0px
+
+table#plate-layout td
+  width:                  29%
+  position:               relative
+
+.plate
+  height:                 60mm
+  width:                  86.67mm
+  stroke:                 rgba(0,0,0,.2)
+  margin:                 2%
+  cursor:                 pointer
+
+#plate-list
+  height:                 25%
+
+.plate path
+  fill:                   $plate-background-color
+
+.plate text
+  text-anchor:            middle
+  alignment-baseline:     middle
+  font-size:              1.0mm
+  fill:                   $aqua-blue
+  stroke-width:           0.15
+  font-family:            Arial,Helvetica,sans-serif
+
+
+.plate text.loading
+  opacity:                1.0
+  font-size:              16px
+  margin-top:             50px
+  margin-left:            50px
+  fill:                   #aaa
+
+.control path
+  fill:                   rgba(170, 69, 69, 0.2)
+
+.destination path
+  fill:                   rgba(69, 170, 69, 0.2)
+
+.source path
+  fill:                   rgba(69, 69, 170, 0.2)
+
+.plate-label
+  text-align:             center
+  cursor:                 pointer
+
+// A bit hard to see in plate.css
+// For wells that are unrealized (pending samples)
+//#well-legend ellipse.unrealized,
+.plate ellipse.unrealized
+  stroke-dasharray:      1.75, 0.4
+  stroke:                rgba(0, 0, 0, 1)
+  stroke-width:          .7px
+  // Now defined by the animation
+  //stroke-opacity:        0.9
+
+
+// Batch Tools
+// Some defined in site.css
+.batch-tool
+  padding:               10px 0px 0px 10px
+  cursor:                pointer
+  line-height:           1.75em
+
+
+.batch-tool i
+  font-size:             30px
+  vertical-align:        middle
+
+.batch-tool span
+  vertical-align:        middle
+  margin-left:           16px

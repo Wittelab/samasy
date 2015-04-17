@@ -1,0 +1,88 @@
+$plate-background-color:  rgba(0,0,0,.01)
+$list-background-color:   rgba(255,255,255,0.8)
+$aqua-blue:               rgba(0,75,108,1.0)
+
+.plate
+  height:                 90mm
+  width:                  130mm
+  margin-left:            auto
+  margin-right:           auto
+  display:                block
+  stroke:                 rgba(0,0,0,.2)
+
+.plate path
+  fill:                   $plate-background-color
+
+.plate text
+  text-anchor:            middle
+  alignment-baseline:     middle
+  font-size:              1.0mm
+  fill:                   $aqua-blue
+  stroke-width:           0.15
+  font-family:            Arial,Helvetica,sans-serif
+
+
+.plate text.loading
+  opacity:                0.6
+  font-size:              16px
+  margin-top:             50px
+  margin-left:            50px
+  fill:                   #000
+  stroke-width:           .25px
+
+// Well styling for when the plate is being loaded
+// The color pulse effect is done in the get_well_info in plate.js if you'd like to modifiy that
+//#well-legend ellipse,
+.plate ellipse
+  stroke-opacity:         0.9
+  stroke-width:           0.5px
+
+// While loading
+.plate ellipse.loading
+  opacity:                0.7
+  stroke:                 rgba(0,0,0,0.2)
+  fill:                   #f9f9f9
+
+// For wells that are unrealized (pending samples)
+//#well-legend ellipse.unrealized,
+.plate ellipse.unrealized
+  stroke-dasharray:      1.0, 0.25
+  stroke:                rgba(0, 0, 0, 1)
+  // Now defined by the animation
+  //stroke-opacity:        0.9
+
+
+// The normal realized class
+.plate ellipse.unselected
+  stroke:                 rgba(0,0,0,.7)
+  // Now defined by the animation
+  //stroke-opacity:        0.9
+
+.plate ellipse.selected
+  fill:                   rgba(255,255,0,0.5)
+  stroke:                 rgba(155,155,0,1.0)
+  // Now defined by the animation
+  //stroke-opacity:        0.9
+
+
+
+// List styling
+ul.batch-list
+  margin-left:            auto
+  margin-right:           auto
+  max-width:              130mm
+  min-height:             20px
+  list-style:             none
+  border:                 1px solid #bbb
+  margin-top:             0px
+  margin-bottom:          5px
+  padding:                5px
+
+
+ul.batch-list li
+  display:                block
+  background-color:       $plate-background-color
+  padding:                2px
+  margin:                 3px
+  margin-right:           10px
+  display:                inline

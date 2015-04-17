@@ -1,0 +1,147 @@
+div style="height: 30%;"
+  h3 Batch Selection
+  - unless @batch_names.empty?
+    div style="width: 100%" id='batch-selection'
+      input id="batch-search" class="form-control search" style="width: 72%; float: left;" placeholder="Search"
+      button class="btn btn-primary sort desc" style="width: 25%; float: right;" data-sort="batch-name" Sort
+      br
+      br
+      ul id="batch-list" class="list"
+        - for batch in @batch_names do
+          li
+            a class="batch-name" href="/batch/#{batch}" = batch
+
+div  style="height: 30%;"
+  h3 Well Legend
+  span id='well-legend-title'
+  //dummy div to keep page from flashing when the legend is updated
+  div id="well-legend-container"
+    div id="well-legend"
+
+div style="height: 30%;"
+  - if @batch.isComplete
+    h3 = "#{@batch.name} (Completed)"
+  - else
+    h3 = "#{@batch.name}"
+  span id="batch-tools-title" Options
+  div id="batch-tools"
+
+    div id="robot-file" class="batch-tool" onclick="robot_file(event, '#{@batch.name}')"
+      i class="fa fa-fw fa-download"
+      span Download the robot file
+
+    - if not @batch.isComplete
+      div id="finish" class="batch-tool" onclick="finish('#{@batch.name}')"
+        i class="fa fa-fw fa-check-circle" style="color: #218559;"
+        span Mark as finished
+
+    //-unless env['warden'].user.nil?
+    //  div id="destroy" class="batch-tool" onclick="destroy('#{@batch.name}')"
+    //    -if env['warden'].user.isAdmin
+    //      i class="fa fa-fw fa-times" style="color: #f02020;"
+    //      span Delete this batch
+
+javascript:
+  null;
+  $(document).ready(function()
+  {
+
+    // Attach search and sort to #batch-list using list.js
+    new List('batch-selection', { valueNames: [ 'batch-name' ] });
+
+  });
+
+  // Defines a function to handle custom click of the robot file download link
+  function robot_file(e, batch)
+  {
+    $("#robot-file i").addClass("faa-flash animated");
+    e.preventDefault();
+    e.stopPropagation();
+
+    // AJAX start the robot file generation and download
+    $.ajax({
+      type: 'POST',
+      url: '/robot_file',
+      data: {'batch':batch, 'debug':e.altKey},
+      success: function(response, status, xhr)
+      {
+        $("#robot-file i").removeClass("faa-flash animated");
+
+
+        // Thanks to stackoverflow post http://stackoverflow.com/questions/16086162/handle-file-download-from-ajax-post
+        var filename = "";
+        var disposition = xhr.getResponseHeader('Content-Disposition');
+        if (disposition && disposition.indexOf('attachment') !== -1) {
+            var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+            var matches = filenameRegex.exec(disposition);
+            if (matches != null && matches[1]) filename = matches[1].replace(/['"]/g, '');
+        }
+
+        var type = xhr.getResponseHeader('Content-Type');
+        var blob = new Blob([response], { type: type });
+
+        if (typeof window.navigator.msSaveBlob !== 'undefined') {
+            // IE workaround for "HTML7007: One or more blob URLs were revoked by closing the blob for which they were created. These URLs will no longer resolve as the data backing the URL has been freed."
+            window.navigator.msSaveBlob(blob, filename);
+        } else {
+            var URL = window.URL || window.webkitURL;
+            var downloadUrl = URL.createObjectURL(blob);
+
+            if (filename) {
+                // use HTML5 a[download] attribute to specify filename
+                var a = document.createElement("a");
+                // safari doesn't support this yet
+                if (typeof a.download === 'undefined') {
+                    window.location = downloadUrl;
+                } else {
+                    a.href = downloadUrl;
+                    a.download = filename;
+                    document.body.appendChild(a);
+                    a.click();
+                }
+            } else {
+                window.location = downloadUrl;
+            }
+
+            setTimeout(function () { URL.revokeObjectURL(downloadUrl); }, 100); // cleanup
+        }
+      },
+      error: function(error)
+      {
+        $("#robot-file i").removeClass("faa-burst animated");
+        console.log("Server error!")
+      },
+      async: true
+    });
+
+    return false;
+  };
+
+
+  // Defines a function to handle custom click of the finish batch link
+  function finish(batch)
+  {
+    $("#finish i").addClass("faa-flash animated");
+
+    // AJAX start the robot file generation and download
+    $.ajax({
+      type: 'POST',
+      url: '/finish',
+      data: {'batch':batch},
+      success: function(response, status, xhr)
+      {
+        //$("#finish i").removeClass("faa-flash animated");
+        $("#finish").hide();
+        // Color all the plates, starting with the status attribute
+        color_plates_by('status', plates, true);
+      },
+      error: function(error)
+      {
+        $("#robot-file i").removeClass("faa-burst animated");
+        console.log("Server error!")
+      },
+      async: true
+    });
+
+    return false;
+  };

@@ -1,0 +1,534 @@
+html lang="en"
+  head
+    meta charset="utf-8"
+    meta content="width=device-width, initial-scale=1" name="viewport"
+
+    title Sample Management System Startup
+    /! Bootstrap core CSS
+    link type="text/css" rel="stylesheet" media="screen" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css"
+    /! Load the site specific CSS
+    link type="text/css" rel="stylesheet" media="screen" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css"
+    link type="text/css" rel="stylesheet" media="screen" href="http://cdnjs.cloudflare.com/ajax/libs/dropzone/3.8.4/css/dropzone.css"
+    link type="text/css" rel="stylesheet" media="screen" href="/css/upload.css"
+
+
+  body
+    .navbar.navbar-default.navbar-fixed-top role="navigation"
+      .container style="width: 100%"
+        .navbar-header
+          button.navbar-toggle.collapsed data-target=".navbar-collapse" data-toggle="collapse" type="button"
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand href="#" style="text-shadow:none;"  Samasy
+        .navbar-collapse.collapse
+          ul.nav.navbar-nav.navbar-right
+            li
+              a href="#" About
+
+
+    div class="container-fluid" style="margin-top:63px;"
+      div class="row"
+        div class="col-md-8 col-md-offset-2"
+
+          div id="step-0"
+            h1 class="center" Hi There!
+            hr
+            div class="description"
+                div class="bs-callout bs-callout-neutral"
+                    div class="fa-stack fa-2x" style="float:right; margin-top:15px"
+                        i class="fa fa-database fa-stack-2x" style="color:#428bca"
+                        i class="fa fa-question fa-stack-2x pulse" style="color:white; text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black"
+                    h4 No Database
+                    p It doesn't look like you've initated your database yet.
+                    p But don't worry, I will help get you started.
+                    p Press 'Next' to begin.
+            div class="button-row"
+              button class="btn btn-primary btn-lg" onClick="complete_step(0)"
+                | Next
+
+
+          div id="step-1" style="display:none;"
+            h1 class="center" Step 1: Import
+            hr
+            div class="description"
+                div class="bs-callout bs-callout-neutral"
+                    h4 Importing Your Data
+                    p Please select a file that contains sample information and drop it in the box below.
+                    p Click the 'Help' button if you are unsure what this file should look like.
+                    p Once the file is uploaded, I'll automatically continue to the next screen.
+
+
+            div
+              form id="dbDropzone" class="drop dropzone"
+                div class="center"
+                  div class="fallback"
+                    input name="file" type="file" multiple
+            div class="button-row"
+              button class="btn btn-primary btn-lg" onClick="complete_step(1,true)"
+                | Back
+              button class="btn btn-info btn-lg" data-toggle="modal" data-target="#db-info"
+                | Help
+
+            /! Modal
+            #db-info.modal.fade aria-hidden="true" aria-labelledby="dbFile" role="dialog" tabindex="-1"
+              .modal-dialog
+                .modal-content
+                  .modal-header
+                    button.close data-dismiss="modal" type="button"
+                      span aria-hidden="true"  &times;
+                      span.sr-only Close
+                    h4#myModalLabel.modal-title Uploading Plate Data
+                  .modal-body
+                    p Drag the file containing your sample information into the box to upload it. This file should be tab-delimited and contain at least the following column headers:
+                    ul style="margin-top:15px"
+                      li SampleID
+                      li PlateID
+                      li Well
+                    p The server is a bit flexible with capitalization and labeling of these three headers, but its best to use exactly those headers. Other column headers are considered sample attributes and will be added to the database as well.
+                    br
+                    p A sample database file may look something like this (spaces are tabs):
+                    pre style="font-size:10px; margin-top:5px;"
+                        |SampleID  Study   PlateID     Well   Case   Sex    Race    Group   Birthyear <br />
+                        | 084671    StudyA  DNA-21501   A01    0      1      1       7       1944 <br />
+                        | 084681    StudyA  DNA-21501   A02    0      1      1       8       1919 <br />
+                        | 084691    StudyA  DNA-21501   A03    1      1      1       10      1954 <br />
+                        | 084701    StudyA  DNA-21501   A04    0      1      5       7       1920 <br />
+                        | 084711    StudyA  DNA-21501   A05    0      1      1       6       1951 <br />
+                        | 084721    StudyA  DNA-21501   A06    1      1      1       6       1939 <br />
+                        |                                     ...
+                    button.btn.btn-default data-dismiss="modal" type="button"  Close
+
+          div id="step-2" style="display:none;"
+            h1 class="center" Step 2: Validating DB File
+            hr
+            div id="db-check-check" class="description"
+                div class="bs-callout bs-callout-neutral"
+                    div class="fa-stack fa-2x" style="float:right; margin-top:7px"
+                        i class="fa fa-spinner fa-spin fa-2x"
+                    h4 Thanks!
+                    p Please wait while the file format is being checked...
+            div id="db-pass-check" class="description" style="display:none;"
+                div class="bs-callout bs-callout-success"
+                    div class="fa-stack fa-2x" style="float:right; margin-top:2px"
+                        i class="fa fa-check fa-2x" style="color:#3c763d"
+                    h4 Looks Good!
+                    p id="db-found-columns"
+                div class="button-row"
+                    button class="btn btn-primary btn-lg" onClick="complete_step(2);"
+                      | Next
+            div id="db-fail-check" class="description" style="display:none;"
+                div class="bs-callout bs-callout-error"
+                    div class="fa-stack fa-2x" style="float:right; margin-top:7px"
+                        i class="fa fa-frown-o fa-2x" style="color:#d9534f"
+                    h4 Uh Oh!
+                    p Something bad happened. Here's what the server said:
+                    samp id="db-check-error-msg" Im a little tea pot...
+                div class="button-row"
+                  button id="try-again" class="btn btn-primary btn-lg" onClick="try_again('db',2);"
+                    | Try again
+
+          div id="step-3" style="display:none;"
+            h1 class="center" Step 3: Upload Data Dictionary
+            hr
+            div class="description"
+                div class="bs-callout bs-callout-neutral"
+                    h4 Importing Your Data Dictionary
+                    p Please select a file that contains sample coding and drop it in the box below.
+                    p Click the 'Help' button if you are unsure what this file is or should look like.
+                    p This screen will advance after uploading, or you can press 'Skip' to skip this step.
+            div
+              form id="codingDropzone" class="drop dropzone"
+                div class="center"
+                  div class="fallback"
+                    input name="file" type="file" multiple
+            div class="button-row"
+              button id="try-again" class="btn btn-primary btn-lg" onClick="skip_coding();"
+                | Skip
+              button class="btn btn-info btn-lg" data-toggle="modal" data-target="#coding-info"
+                | Help
+
+            /! Modal
+            #coding-info.modal.fade aria-hidden="true" aria-labelledby="codingFile" role="dialog" tabindex="-1"
+              .modal-dialog
+                .modal-content
+                  .modal-header
+                    button.close data-dismiss="modal" type="button"
+                      span aria-hidden="true"  &times;
+                      span.sr-only Close
+                    h4#myModalLabel.modal-title Uploading Coding Information
+                  .modal-body
+                    p Some of your data may be coded. For example, maybe you use '0' to represent samples from a male patient and '1' for female patients. For displaying information in the Samasy interface, it is often desirable to decode these values to more friendly versions. If you wish, select a file that contains decoding information and drop it into the upload area.
+                    br
+                    p The file must be tab delimited and contain the following headers:
+                    ul
+                      li Attribute (Corresponds to your database file column header)
+                      li Code (What is present in the database file)
+                      li Value (What should be displayed in the interface instead)
+                    p Below is an example of the header and some rows (spaces between columns are tabs).
+                    p Some columns in the database aren't represented here because they don't need to be decoded.
+                    pre
+                      | Attribute Code  Value <br />
+                      | Case       0     false <br />
+                      | Case       1     true <br />
+                      | Sex        0     male <br />
+                      | Sex        1     female <br />
+                      | Race       1     white <br />
+                      | Race       2     black <br />
+                      | Race       3     hispanic <br />
+                      | Race       4     asian <br />
+                      | Race       5     other <br />
+                      | Group      0     Dose1 <br />
+                      | Group      1     Dose2 <br />
+                      | Group      2     Dose3 <br />
+                      | Group      3     Dose4 <br />
+                      | Group      4     Dose5 <br />
+                      | Group      5     Dose6 <br />
+                      | Group      6     Dose7 <br />
+                      | Group      7     Dose8 <br />
+                      | Group      8     Dose9 <br />
+                  .modal-footer
+                    button.btn.btn-default data-dismiss="modal" type="button"  Close
+
+          div id="step-4" style="display:none;"
+            h1 class="center" Step 4: Validating Coding File
+            hr
+            div id="coding-check-check" class="description"
+                div class="bs-callout bs-callout-neutral"
+                    div class="fa-stack fa-2x" style="float:right; margin-top:7px"
+                        i class="fa fa-spinner fa-spin fa-2x"
+                    h4 Thanks!
+                    p Please wait while the file format is being checked...
+            div id="coding-pass-check" class="description" style="display:none;"
+                div class="bs-callout bs-callout-success"
+                    div class="fa-stack fa-2x" style="float:right; margin-top:-9px"
+                        i class="fa fa-check fa-2x" style="color:#3c763d"
+                    h4 Looks Good!
+                div class="button-row"
+                    button class="btn btn-primary btn-lg" onClick="complete_step(4); start_processing();"
+                      | Next
+            div id="coding-fail-check" class="description" style="display:none;"
+                div class="bs-callout bs-callout-error"
+                    div class="fa-stack fa-2x" style="float:right; margin-top:7px"
+                        i class="fa fa-frown-o fa-2x" style="color:#d9534f"
+                    h4 Uh Oh!
+                    p Something bad happened. Here's what the server said:
+                    samp id="coding-check-error-msg" Im a little tea pot...
+                div class="button-row"
+                  button id="try-again" class="btn btn-primary btn-lg" onClick="try_again('coding',4)"
+                    | Try again
+
+
+          div id="step-5" style="display:none;"
+            h1 class="center" Step 5: Populating Database
+            hr
+            div id="processing-processing" class="description"
+                div class="bs-callout bs-callout-neutral"
+                    h4 Populating
+                    p The database is now being populated. This will take some time, so please wait.
+                    p The progress bar below will give you an idea about how much time is left.
+                div class="progress" style="margin-top:50px"
+                    div id="process-progress" class="progress-bar progress-bar-striped active" style="width: 0%;" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
+                div id="completed-processing" class="button-row" style="display:none;"
+                    button class="btn btn-primary btn-lg" onClick="complete_step(5)"
+                      | Next
+            div id="fail-processing" class="description" style="display:none;"
+                div class="bs-callout bs-callout-error"
+                    div class="fa-stack fa-2x" style="float:right; margin-top:7px"
+                        i class="fa fa-frown-o fa-2x" style="color:#d9534f"
+                    h4 Uh Oh!
+                    p Something happened. Here's what the server said:
+                    samp id="processing-error-msg" Im a little tea pot...
+                    p Check your input file and start over (sorry). If this keeps happening, contact support!
+                div class="button-row"
+                  button class="btn btn-primary btn-lg" onClick="window.location='/start'"
+                    | Start Over
+
+          div id="step-6" style="display:none;"
+            h1 class="center" Step 6: Creating the Admin User
+            hr
+            div class="description"
+              div class="bs-callout bs-callout-neutral"
+                h4 Congrats!
+                p The database was successfully populated.
+                p The final step is to create an adminstrative user. Please fill out the form below.
+                br
+                form#admin-create.form-horizontal role="form" action="/auth/create" method="post"
+                  .form-group
+                    label.col-sm-2.control-label for="inputEmail"  Email
+                    .col-sm-10
+                      input#inputEmail.form-control placeholder="Email" type="email" name="username"
+                  .form-group
+                    label.col-sm-2.control-label for="inputPassword"  Password
+                    .col-sm-10
+                      input#inputPassword.form-control placeholder="Password" type="password" name="password"
+                  .form-group
+                    label.col-sm-2.control-label for="inputPassword2"  Verify
+                    .col-sm-10
+                      input#inputPassword2.form-control placeholder="Verify Password" type="password" name="password2"
+                  .form-group
+                    .col-sm-offset-2.col-sm-10
+                      button.btn.btn-default type="submit"  Create
+
+          div id="step-7" style="display:none;"
+            h1 class="center" All Finished!
+            hr
+            div class="description"
+              div class="bs-callout bs-callout-success"
+                  h4 Ok
+                  p You're now ready to view the plate interface.
+                  p Click the button below to take you there.
+              div class="button-row"
+                  button class="btn btn-primary btn-lg" onClick="window.location='/'"
+                    | Take me there!
+
+  /! Load javascript libraries
+  script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"
+  script src="http://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"
+  script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js"
+  script src="http://cdnjs.cloudflare.com/ajax/libs/dropzone/3.8.4/dropzone.min.js"
+  script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/js/bootstrapValidator.min.js"
+
+  javascript:
+    null;
+    // Dropzone.js binds any form with class 'dropzone' unless this is set to false (autodiscover)
+    Dropzone.autoDiscover = false;
+
+    // dropzone.js is used to upload the db_file
+    dbDropzone = new Dropzone("#dbDropzone",{
+      url: "/upload/db",
+      maxFiles: 1,
+      dictDefaultMessage: "<i class='fa fa-cloud-upload'></i><br />Drag and drop your batch <br> file(s) here (or click) to upload.",
+      maxFilesize: 800, //In Mb
+      init: function()
+      {
+        // When the file is successfully uploaded
+        this.on("success", function (file)
+        {
+          setTimeout(function()
+          {
+            complete_step(1);
+            check_file('db');
+          }, 1200); });
+        // When the file is not successfully upload
+        this.on("error", function (file){ alert("There was a problem uploading the db file."); window.location="/start"; return false; });
+      },
+    });
+
+    // dropzone.js is used to upload the db_file
+    codingDropzone = new Dropzone("#codingDropzone",{
+      url: "/upload/coding",
+      maxFiles: 1,
+      dictDefaultMessage: "<i class='fa fa-cloud-upload'></i><br />Drag and drop your coding <br> file here (or click) to upload.",
+      maxFilesize: 800, //In Mb
+      init: function()
+      {
+        // When the file is successfully uploaded
+        this.on("success", function (file)
+        { setTimeout(function()
+          {
+            complete_step(3);
+            check_file('coding');
+          }, 1200); });
+        // When the file is not successfully upload
+        this.on("error", function (file){ alert("There was a problem uploading the coding file."); window.location="/start"; return false; });
+      },
+    });
+
+
+    // Function to slide between step divs
+    function complete_step(num, back)
+    {
+      if (typeof back === 'undefined') { back = false; }
+      var cur  ="#step-"+num;
+      if (back)
+      {
+        var next ="#step-"+(num-1);
+        $(cur).hide( "drop", { direction: "right" }, "slow", function() {
+          $(next).show( "drop", { direction: "left" }, "slow" );
+        });
+      }
+      else {
+        var next ="#step-"+(num+1);
+        $(cur).hide( "drop", { direction: "left" }, "slow", function() {
+          $(next).show( "drop", { direction: "right" }, "slow" );
+        });
+      }
+    }
+
+
+    // An AJAX function to ask the server to check the db file
+    function check_file(type)
+    {
+        // This happens really fast. Delays are used to help the user understand the process
+        setTimeout(function()
+        {
+            $.ajax({
+                url : '/check_file',
+                type : 'GET',
+                dataType :'json',
+                data : {'type':type},
+                success : function(data)
+                {
+
+                    if(data[0]=="Good!")
+                    {
+                        $("#"+type+"-check-check").fadeOut(500,function(){$("#"+type+"-pass-check").fadeIn(500);});
+                        if (type=='db')
+                          { $("#db-found-columns").text("The SampleID, PlateID, Well, and " + data[1].length + " attribute columns were found."); }
+                    } else {
+                        $("#"+type+"-check-check").fadeOut(500,function(){$("#"+type+"-fail-check").fadeIn(500);})
+                        $("#"+type+"-check-error-msg").text(data[1]);
+                    }
+                },
+                error : function(request,error)
+                {
+                    alert("There was an error communicating with the server to check the file");
+                }
+            });
+        },3000);
+    }
+
+    // Resets upload file and returns to previous step
+    function try_again(type, step)
+    {
+        eval(type+"Dropzone.removeAllFiles(true);");
+        complete_step(step,true);
+        $("#"+type+"-fail-check").fadeOut(500,function(){$("#"+type+"-check-check").fadeIn(500);})
+    }
+
+    function skip_coding()
+    {
+        $.ajax({
+            url : '/check_file',
+            type : 'GET',
+            dataType :'json',
+            data : {'type':'coding', 'skip':true},
+            success : function(data)
+            {
+                $("#step-3").hide( "drop", { direction: "left" }, "slow", function() {
+                  $("#step-5").show( "drop", { direction: "right" }, "slow" );
+                });
+                start_processing();
+            },
+            error : function(request,error){alert("There was an error telling the server to skip the coding file.");}
+        });
+    }
+
+
+
+    function start_processing()
+    {
+      $.ajax({url: "/start_db_processing"});
+      start_process_polling();
+    }
+    // Function to ask the server for the progress of the db file processing.
+    function start_process_polling()
+    {
+        $('#process-progress').text("0%");
+        var process_poll = setInterval(function()
+        {
+            $.ajax({
+                url: "/check_db_progress",
+                success: function(data)
+                {
+                    if(data[0]=="Good!")
+                    {
+                        var pcnt = parseInt(parseFloat(data[1])*100);
+                        $('#process-progress').css('width', pcnt+'%').attr('aria-valuenow', pcnt);
+                        $('#process-progress').text(pcnt+"%");
+                        if (pcnt >= 100.0)
+                        {
+                            console.log("Completed step 3 (Processing).");
+                            clearInterval(process_poll);
+                            $("#completed-processing").fadeIn(500);
+                            $("#process-progress").removeClass("active");
+                            $("#process-progress").removeClass("progress-bar-striped");
+                        }
+                    } else {
+                        clearInterval(process_poll)
+                        $("#processing-processing").fadeOut(500,function(){$("#fail-processing").fadeIn(500);})
+                        $("#processing-error-msg").text(data[1]);
+                    }
+                },
+                dataType: "json"
+            });
+        }, 2000);
+    }
+
+    $(document).ready(function()
+    {
+      $('#admin-create').bootstrapValidator(
+        {
+          message: 'This value is not valid',
+          feedbackIcons:
+          {
+              valid: 'glyphicon glyphicon-ok',
+              invalid: 'glyphicon glyphicon-remove',
+              validating: 'glyphicon glyphicon-refresh'
+          },
+          fields:
+          {
+              username:
+              {
+                  message: '',
+                  validators:
+                  {
+                      notEmpty: { message: 'The email is required and cannot be empty' },
+                      stringLength:
+                      {
+                          min: 4,
+                          max: 64,
+                          message: 'The email be more than 4 and less than 64 characters long'
+                      },
+                      remote:
+                      {
+                        message: 'The username is not available',
+                        url: '/auth/user/availability'
+                    }
+                  }
+              },
+              password:
+              {
+                  validators:
+                  {
+                      notEmpty: { message: 'A password is required' },
+                      stringLength:
+                      {
+                          min: 2,
+                          max: 64,
+                          message: 'The password must be more than 2 and less than 64 characters long'
+                      },
+                  }
+              },
+              password2:
+              {
+                  validators:
+                  {
+                      notEmpty: { message: 'The email is required and cannot be empty' },
+                      identical:
+                      {
+                        field: 'password',
+                        message: 'Your passwords must match'
+                      }
+                  }
+              }
+
+          }
+        })
+        .on('success.form.bv', function(e)
+        {
+            // Prevent form submission
+            e.preventDefault();
+            var $form = $(e.target);
+            var bv = $form.data('bootstrapValidator');
+            $.post($form.attr('action'), $form.serialize(), function(result)
+            {
+                if(result=="OK!")
+                {
+                  complete_step(6);
+                }
+            }, 'json');
+        });
+    });

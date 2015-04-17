@@ -1,0 +1,169 @@
+link type="text/css" rel="stylesheet" media="screen" href="http://cdnjs.cloudflare.com/ajax/libs/dropzone/3.8.4/css/dropzone.css"
+link type='text/css' rel='stylesheet' media="screen" href='http://fonts.googleapis.com/css?family=Ubuntu+Mono'
+link type="text/css" rel="stylesheet" media="screen" href="/css/upload.css"
+
+div id="add"
+  h1 class="center" Adding Batch files
+  hr
+  div class="description"
+      div class="bs-callout bs-callout-neutral"
+          h4 Importing Batch Files
+          p Please drag and drop batch files into the box below.
+          p Click the 'Help' button if you are unsure what these files should look like.
+          p Once files is uploaded, click 'Done'.
+
+  div
+    form id="batchDropzone" class="drop dropzone"
+      div class="center"
+        div class="fallback"
+          input name="file" type="file" multiple
+  div class="button-row"
+    button class="btn btn-primary btn-lg" onClick="start_processing();"
+      | Done
+    button class="btn btn-info btn-lg" data-toggle="modal" data-target="#batch-info"
+      | Help
+
+  /! Modal
+  #batch-info.modal.fade aria-hidden="true" aria-labelledby="batchFile" role="dialog" tabindex="-1"
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button.close data-dismiss="modal" type="button"
+            span aria-hidden="true"  &times;
+            span.sr-only Close
+          h4#myModalLabel.modal-title Uploading Plate Data
+        .modal-body
+          p Drag files containing batch mappings into the box below to upload them. The files should be tab-delimited and contain the following column headers:
+          ul style="margin-top:15px"
+            li BatchID
+            li Source Plate
+            li Source Well
+            li Destination Plate
+            li Destination Well
+            li Volume
+          br
+          p A sample batch file may look something like this (spaces are tabs):
+          pre style="font-size:10px; margin-top:5px;"
+            |  BatchID   Source Plate     Source Well    Destination Plate    Destination Well    Volume<br>
+            |     1       DNA-21501           A01            Dest-001               G06             30<br>
+            |     1       DNA-21501           A02            Dest-001               D09             30<br>
+            |     1       DNA-21501           A03            Dest-001               D07             30<br>
+            |     1       DNA-21501           A04            Dest-001               B02             30<br>
+            |     1       DNA-21501           A05            Dest-001               G11             30<br>
+            |     1       DNA-21501           A06            Dest-001               G02             30<br>
+            |                                      ...
+          p If, after uploading a file, you see a red 'X' over the file icon, hover over it to see the error.
+          br
+          button.btn.btn-default data-dismiss="modal" type="button"  Close
+
+div id="process" style="display:none;"
+  h1 class="center" Processing Batch Files
+  hr
+  div id="processing-processing" class="description"
+      div class="bs-callout bs-callout-neutral"
+          h4 Processing
+          p The batch files are now being added to the database. This will take some time, so please wait. The progress bar below will give you an idea about how much time is left.
+      div class="progress" style="margin-top:50px"
+          div id="process-progress" class="progress-bar progress-bar-striped active" style="width: 0%;" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
+      div id="completed-processing" class="button-row" style="display:none;"
+          button class="btn btn-primary btn-lg" onClick="transition('#process','#errors')"
+            | Next
+  div id="fail-processing" class="description" style="display:none;"
+      div class="bs-callout bs-callout-error"
+          div class="fa-stack fa-2x" style="float:right; margin-top:7px"
+              i class="fa fa-frown-o fa-2x" style="color:#d9534f"
+          h4 Uh Oh!
+          p Something happened. Here's what the server said:
+          samp id="processing-error-msg" Im a little tea pot...
+          p Check your input file and start over (sorry). If this keeps happening, contact support!
+      div class="button-row"
+        button class="btn btn-primary btn-lg" onClick="window.location='/add/batch'"
+          | Start Over
+
+div id="errors" style="display:none;"
+  h1 class="center" Warnings and Errors
+  hr
+  div class="description"
+    div class="bs-callout bs-callout-neutral"
+      h4 Issues Importing Batch Files
+      p The following messages were returned by the server when processing your batches.
+      p Most errors are non fatal and the particular mapping is simply ignored.
+      p You can take note of the errors, fix them, and add them as a new batch.
+    div id="error-list"
+    div class="button-row"
+      button class="btn btn-primary btn-lg" onClick="window.location='/batch'"
+        | Show the batches
+
+
+/! Load javascript libraries
+script src="http://cdnjs.cloudflare.com/ajax/libs/dropzone/3.8.4/dropzone.min.js"
+script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/js/bootstrapValidator.min.js"
+
+javascript:
+  null;
+  // Dropzone.js binds any form with class 'dropzone' unless this is set to false (autodiscover)
+  Dropzone.autoDiscover = false;
+
+  // dropzone.js is used to upload the db_file
+  batchDropzone = new Dropzone("#batchDropzone",{
+    url: "/upload/batch",
+    maxFiles: 20,
+    dictDefaultMessage: "<i class='fa fa-cloud-upload'></i><br />Drag and drop your batch <br> file(s) here (or click) to upload.",
+    maxFilesize: 50, //In Mb
+    createImageThumbnails: true,
+    thumbnailWidth: "50px"
+  });
+
+
+  function transition(to, from)
+  {
+    $(to).hide( "drop", { direction: "left" }, "slow", function() {
+          $(from).show( "drop", { direction: "right" }, "slow" );
+    });
+  }
+
+
+  function start_processing()
+  {
+    $.ajax({
+      url: "/start_batch_processing",
+      data: {'batch_files':_.map(batchDropzone.files, function(x){if(x.status=="success"){return x.name}})}, // Names of successful files
+      dataType: "json"
+    });
+    transition("#add","#process");
+    start_process_polling();
+  }
+
+  // Function to ask the server for the progress of the db file processing.
+  function start_process_polling()
+  {
+      $('#process-progress').text("0%");
+      var process_poll = setInterval(function()
+      {
+          $.ajax({
+              url: "/check_batch_progress",
+              success: function(data)
+              {
+                  if(data[0]=="Good!")
+                  {
+                      var pcnt = parseInt(parseFloat(data[1])*100);
+                      $('#process-progress').css('width', pcnt+'%').attr('aria-valuenow', pcnt);
+                      $('#process-progress').text(pcnt+"%");
+                      if (pcnt >= 100.0)
+                      {
+                          clearInterval(process_poll);
+                          $("#completed-processing").fadeIn(500);
+                          $("#process-progress").removeClass("active");
+                          $("#process-progress").removeClass("progress-bar-striped");
+                          _.each(data[2], function(x){ $("#error-list").append("<p>"+x+"</p>"); });
+                      }
+                  } else {
+                      clearInterval(process_poll)
+                      $("#processing-processing").fadeOut(500,function(){$("#fail-processing").fadeIn(500);})
+                      $("#processing-error-msg").text(data[1]);
+                  }
+              },
+              dataType: "json"
+          });
+      }, 2000);
+  }

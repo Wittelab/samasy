@@ -1,0 +1,194 @@
+.navbar.navbar-default.navbar-fixed-top role="navigation"
+  .container style="width: 100%"
+    .navbar-header
+      button.navbar-toggle.collapsed data-target=".navbar-collapse" data-toggle="collapse" type="button"
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.navbar-brand href="/" style="text-shadow:none;"  Samasy
+    .navbar-collapse.collapse
+      -unless env['warden'].user.nil?
+        ul.nav.navbar-nav.navbar
+          li.dropdown
+            a.dropdown-toggle data-toggle="dropdown" href="#"
+              | Views
+              span.caret
+            ul.dropdown-menu role="menu"
+              li
+                a href="/samples"
+                  i class="fa fa-fw fa-book"
+                  |   Samples View
+              li
+              li
+                a href="/plate"
+                  i class="fa fa-fw fa-square"
+                  |   Plate View
+              li
+                a href="/batch"
+                  i class="fa fa-fw fa-th"
+                  |   Batch View
+          -if defined? @attribs
+            li.dropdown
+              a.dropdown-toggle data-toggle="dropdown" href="#"
+                | Color Wells By
+                span.caret
+                  ul.dropdown-menu role="menu"
+                    li
+                      a href="#" onClick="color_plates_by('status', plates, true);" Status
+                    - for attrib in @attribs do
+                      li
+                        a href="#" onClick="color_plates_by('#{attrib}', plates, true);" #{attrib}
+
+      ul.nav.navbar-nav.navbar-right
+        -unless env['warden'].user.nil?
+          -if env['warden'].user.isAdmin
+            li.dropdown
+              a.dropdown-toggle data-toggle="dropdown" href="#"
+                | Admin
+                span.caret
+              ul.dropdown-menu role="menu"
+                li
+                  a href="/add/batch"
+                    i class="fa fa-fw fa-cubes"
+                    |   Add Batches
+                li
+                  a href="/modify/users"
+                    i class="fa fa-fw fa-users"
+                    |   Modify Users
+                -if defined? @plate
+                  li type="button" data-toggle="modal" data-target="#destroy-plate"
+                    a href="#"
+                      i class="fa fa-fw fa-bomb" style="color: #f02020;"
+                      |   Delete Plate
+                -if defined? @batch
+                  li type="button" data-toggle="modal" data-target="#destroy-batch"
+                    a href="#"
+                      i class="fa fa-fw fa-bomb" style="color: #f02020;"
+                      |   Delete Batch
+                li type="button" data-toggle="modal" data-target="#destroy-database"
+                  a href="#"
+                    i class="fa fa-fw fa-bomb" style="color: #f02020;"
+                    |   Reset Database
+        -if env['warden'].user.nil?
+          li
+            a href="/auth/login" Login
+        -else
+          li
+            a href="/auth/logout" Logout
+        li
+          a href="#" About
+
+
+
+/! Modal
+-if defined? @plate
+  #destroy-plate.modal.fade aria-hidden="true" aria-labelledby="destroyPlate" role="dialog" tabindex="-1"
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button.close data-dismiss="modal" type="button"
+            span aria-hidden="true"  &times;
+            span.sr-only Close
+          h4#myModalLabel.modal-title Are You Sure?
+        .modal-body
+          p
+            | Deleting a plate will completely remove it and all contained samples from the database.
+        .modal-footer
+          button type="button" class="btn btn-default" data-dismiss="modal" Nevermind
+          button id="ok-plate-destroy" type="button" data-plate="#{@plate.name}" class="btn btn-danger" I'm Sure
+
+
+/! Modal
+-if defined? @batch
+  #destroy-batch.modal.fade aria-hidden="true" aria-labelledby="destroyBatch" role="dialog" tabindex="-1"
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button.close data-dismiss="modal" type="button"
+            span aria-hidden="true"  &times;
+            span.sr-only Close
+          h4#myModalLabel.modal-title Are You Sure?
+        .modal-body
+          p
+            | Deleting a batch can have unexpected consequences, especially if it has been marked as complete since sample information
+            | will have already been copied to destination wells. This behavior is designed to reflect realized actions by the robot which in some cases are irreversible.
+            | Destroying a batch will not destroy destination plates created by it, but it will destroy well mappings whether they have occured or not.
+            | Please proceed with caution.
+        .modal-footer
+          button type="button" class="btn btn-default" data-dismiss="modal" Nevermind
+          button id="ok-batch-destroy" type="button" data-batch="#{@batch.name}" class="btn btn-danger" I'm Sure
+
+
+/! Modal
+#destroy-database.modal.fade aria-hidden="true" aria-labelledby="destroyDatabase" role="dialog" tabindex="-1"
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close data-dismiss="modal" type="button"
+          span aria-hidden="true"  &times;
+          span.sr-only Close
+        h4#myModalLabel.modal-title Are You Sure?
+      .modal-body
+        p
+          | Removing the database will wipe all information regarding plates, mappings, and batches. Be very careful with this option.
+      .modal-footer
+        button type="button" class="btn btn-default" data-dismiss="modal" Nevermind
+        button id="ok-database-destroy" type="button" class="btn btn-danger" I'm Sure
+
+
+javascript:
+  null;
+
+
+  $('#ok-batch-destroy').on('click', function()
+  {
+    var batch = $(this).data('batch');
+
+    // AJAX start the robot file generation and download
+    $.ajax({
+      type: 'GET',
+      url: '/destroy/batch/'+batch,
+      success: function(response, status, xhr){},
+      error: function(error) { console.log("Server error!") },
+      async: true
+    });
+    $('#destroy-batch').modal('hide');
+    window.location.href="/batch"
+    return false;
+  });
+
+
+  $('#ok-plate-destroy').on('click', function()
+  {
+    var plate = $(this).data('plate');
+
+    // AJAX start the robot file generation and download
+    $.ajax({
+      type: 'GET',
+      url: '/destroy/plate/'+plate,
+      success: function(response, status, xhr){},
+      error: function(error) { console.log("Server error!") },
+      async: true
+    });
+    $('#destroy-plate').modal('hide');
+    window.location.href="/plate"
+    return false;
+  });
+
+
+  $('#ok-database-destroy').on('click', function()
+  {
+
+    // AJAX start the robot file generation and download
+    $.ajax({
+      type: 'GET',
+      url: '/destroy/database',
+      success: function(response, status, xhr){},
+      error: function(error) { console.log("Server error!") },
+      async: true
+    });
+    $('#destroy-database').modal('hide');
+    window.location.href="/start"
+    return false;
+  });

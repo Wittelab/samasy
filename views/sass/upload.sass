@@ -1,0 +1,170 @@
+$content-width:           600px
+$callout-color-neutral:   #428bca
+$callout-color-error:     #d9534f
+$callout-color-success:   #3c763d
+$border-radius:           15px
+
+.description
+	width:                  $content-width
+	margin-left:            auto
+	margin-right:           auto
+	//font-size:            32px
+	//text-align:           center
+	//text-justify:         inter-word
+	margin-bottom:          15px
+
+.button-row
+	width:                  $content-width
+	margin-left:            auto
+	margin-right:           auto
+	text-align:             center
+
+.center
+	margin-left:            auto
+	margin-right:           auto
+	text-align:             center
+
+
+#error-list
+	min-height:             320px
+	max-height:             500px
+	border-radius:          $border-radius
+	border:                 4px #444 solid
+	background:             #777
+	padding:                10px
+	margin:                 10px 0px
+	font-family:            'Ubuntu Mono'
+	color:                  #FFF2AF
+	overflow-y:             auto
+
+#error-list p
+	white-space:            nowrap
+	margin:                 0px
+
+// Scrollbar
+// Scrollbars
+::-webkit-scrollbar
+	width:                  12px
+
+::-webkit-scrollbar-track
+	border-radius:          $border-radius
+	margin:                 6px
+	background:             rgba(255, 255, 255, 0.0)
+	border:                 0px
+
+::-webkit-scrollbar-thumb
+	border-radius:          $border-radius
+	background:             #eee
+	border:                 0px
+
+::-webkit-scrollbar-corner
+	background:             rgba(255, 255, 255, 0.0)
+
+// Dropzone related
+.drop
+	border:                 2px #ddd solid !important
+	width:                  $content-width
+	padding:                20px
+	text-align:             center
+	margin-left:            auto
+	margin-right:           auto
+	margin-top:             10px
+	border-radius:          15px
+	background:             white
+	i
+		font-size:            160px
+		color:                #ddd
+		-webkit-transition:   color 0.3s ease-in-out
+		-moz-transition:      color 0.3s ease-in-out
+		-o-transition:        color 0.3s ease-in-out
+		-ms-transition:       color 0.3s ease-in-out
+
+.dz-default
+	font-size:              23px
+	color:                  #aaa
+
+.dropzone
+	min-height:             320px
+
+.dropzone.dz-drag-hover
+	background:             white
+	i
+		color:                moccasin
+
+.dz-default.dz-message
+	background-image:       none !important
+	margin-top:             0px !important
+	top:                    inherit !important
+	span
+		display:              block !important
+
+.dropzone .dz-preview, .dropzone-previews .dz-preview
+	font-size:              14px
+
+.dropzone .dz-preview .dz-details, .dropzone-previews .dz-preview .dz-details
+	width:                  100px
+	height:                 100px
+
+
+
+// Bootstrap related
+.btn
+	margin-right:           10px
+
+
+.bs-callout
+	padding:                20px
+	margin:                 20px 0
+	border:                 1px solid #eee
+	border-left-width:      5px
+	border-right-width:     5px
+	border-radius:          3px
+
+
+.bs-callout-neutral
+	border-left-color:      $callout-color-neutral
+	border-right-color:     $callout-color-neutral
+	h4
+		color:                $callout-color-neutral
+
+.bs-callout-error
+	border-left-color:      $callout-color-error
+	border-right-color:     $callout-color-error
+	h4
+		color:                $callout-color-error
+
+.bs-callout-success
+	border-left-color:      $callout-color-success
+	border-right-color:     $callout-color-success
+	h4
+		color:                $callout-color-success
+
+p
+	margin:                 0px
+
+
+// Effects classes
+.pulse
+	-webkit-animation-name:            'pulse_animation'
+	-webkit-animation-duration:        1000ms
+	-webkit-transform-origin:          70% 70%
+	-webkit-animation-iteration-count: infinite
+	-webkit-animation-timing-function: linear
+
+@-webkit-keyframes pulse_animation
+	0%
+		-webkit-transform: scale(1)
+	30%
+		-webkit-transform: scale(1.00)
+	40%
+		-webkit-transform: scale(1.00)
+	50%
+		-webkit-transform: scale(1.01)
+	60%
+		-webkit-transform: scale(1.06)
+	70%
+		-webkit-transform: scale(1.01)
+	80%
+		-webkit-transform: scale(1.00)
+	100%
+		-webkit-transform: scale(1)

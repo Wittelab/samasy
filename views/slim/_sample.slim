@@ -1,0 +1,45 @@
+link type="text/css" rel="stylesheet" media="screen" href="http://cdn.datatables.net/1.10.4/css/jquery.dataTables.css"
+link type="text/css" rel="stylesheet" media="screen" href="http://cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/3/dataTables.bootstrap.css"
+script src="http://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.4/js/jquery.dataTables.min.js"
+script src="http://cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/3/dataTables.bootstrap.js"
+
+
+h1 Sample Listing
+-unless @samples.nil?
+  table id="samples" class="display table table-stripped"
+    thead
+      tr
+        th Sample ID
+        th Plate
+        th Well
+        -for attrib in @attrib_keys do 
+          th = attrib
+
+
+sass:
+  table th
+    color: #28a8e0
+
+  table td
+    color: #555
+
+  .paginate_button:hover
+    background: none !important
+    background-color: none !important
+    border: none !important
+
+  li.paginate_button, .paginate_button.disabled:active
+    padding: 0px !important
+    border: none !important
+
+javascript:
+  var table;
+  $(document).ready( function () {
+      table = $('#samples').dataTable(
+      {
+        "processing": true,
+        "serverSide": true,
+        "bServerSide": true,
+        "ajax": { "url":"/json/samples", "type":"POST" }
+      });
+  });

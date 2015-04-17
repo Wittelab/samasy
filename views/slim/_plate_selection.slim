@@ -1,0 +1,35 @@
+div style="height: 30%;"
+  h3 Plate Selection
+  - unless @plate_names.empty?
+    div style="width: 100%" id='plate-selection'
+      input id="plate-search" class="form-control search" style="width: 72%; float: left;" placeholder="Search"
+      button class="btn btn-primary sort asc" style="width: 25%; float: right;" data-sort="plate-name" Sort
+      br
+      br
+      ul id="plate-list" class="list"
+        - for plate in @plate_names do
+          li
+            a class="plate-name" href="/plate/#{plate}" = plate
+
+div  style="height: 30%;"
+  h3 Well Legend
+  span id='well-legend-title'
+  //dummy div to keep page from flashing when the legend is updated
+  div id="well-legend-container"
+    div id="well-legend"
+
+div style="height: 30%;"
+  h3 Well Information
+  div id="well-info"
+    h4
+      | (Click on a well to show)
+
+
+javascript:
+  $(document).ready(function()
+  {
+
+    // Attach search and sort to #plate-list using list.js
+    new List('plate-selection', { valueNames: [ 'plate-name' ] });
+
+  });

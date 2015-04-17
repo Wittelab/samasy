@@ -1,0 +1,45 @@
+link type="text/css" rel="stylesheet" media="screen" href="/css/plate.css"
+link type="text/css" rel="stylesheet" media="screen" href="/css/batch.css"
+link type="text/css" rel="stylesheet" media="screen" href="/font-awesome-animation.min.css"
+
+table id="plate-layout"
+  - for x in (1..9).to_a
+    - if ((x+2) % 3) == 0
+      | <tr>
+    |     <td>
+    -idx = [4,7,10,5,8,11,6,9,12][x-1]
+    -pod = @batch.pods.first(:position => idx)
+    - if pod.plate.nil?
+      |     <div id="plate-#{x+3}" class="">
+      |       <div class="plate-label">&nbsp</div>
+      |     </div>
+    - else
+      |     <div id="plate-#{x+3}" class="#{pod.plate.type.downcase}" data-id="#{pod.plate.plateID}">
+      |       <div class="plate-label" onClick="window.location ='/plate/#{pod.plate.plateID}'">
+      =         pod.plate.plateID
+      |       </div>
+      |    </div>
+
+
+javascript:
+    null;
+    var plates = [];
+    $(document).ready(function()
+    {
+
+      // Draw all the plates, and store them in the plates array
+      _.each(_.range(4,13), function (x)
+      {
+        //Draw all plates
+        plate = draw_plate("plate-"+x);
+        plates.push(plate)
+      });
+
+      // Show content div (prevents 'flash' while image is being drawn)
+      $('#content').delay(50).fadeIn(100);
+      //$('#content').delay(5500).show();
+
+      // Color all the plates, starting with the status attribute
+      color_plates_by('status', plates, true);
+
+    });

@@ -1,0 +1,16 @@
+div.row
+ div.col-md-5
+  form.form-horizontal role="form" action="/auth/login/verify" method="post"
+    h4 = @message
+    - session.delete :message
+    .form-group
+      label.col-sm-2.control-label for="inputEmail"  Email
+      .col-sm-10
+        input#inputEmail.form-control placeholder="Email" type="email" name="username"
+    .form-group
+      label.col-sm-2.control-label for="inputPassword"  Password
+      .col-sm-10
+        input#inputPassword.form-control placeholder="Password" type="password" name="password"
+    .form-group
+      .col-sm-offset-2.col-sm-10
+        button.btn.btn-default type="submit"  Login
