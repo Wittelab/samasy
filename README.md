@@ -1,5 +1,5 @@
-# samasy
-A SAmple MAnagement SYstem for robotic transfer of samples in 96 well plates
+# Samasy
+A **Sa**mple **Ma**nagement **Sy**stem for 96 well plates, including robotic transfer.
 
 
 ## Install Dependencies 
