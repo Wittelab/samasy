@@ -1,9 +1,29 @@
-Copyright (c) 2015 Clinton Cario / Witte Lab
+Copyright Notice
+Copyright (c) 2015, Regents of the University of California
+All rights reserved.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+Copyright (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+Copyright (c) 2007, 2008, 2009 Blake MizeranyCopyright (c) 2010, 2011, 2012, 2013, 2014 Konstantin Haase
+Copyright (c) 2010 - 2015 Slim Team
+Copyright (c) 2011 Dan Kubb 
+
+Regents of the University of California are the proprietor of the copyrights of and to Samasy, the SAmple MAnagement SYstem and associated material as disclosed in, but not limited to UC Case No SF2015-200 (“Content”). Redistribution and use of the Content with or without modification are permitted provided that redistributions of Content must retain the above copyright notice, list of conditions and the following disclaimer.
+
+Use of the Content for the sale of any product or service or for the purpose of profit-making is strictly prohibited.
+Any request to furnish all or any portion of the Content for the sale of any product or service or for the purpose of profit-making, shall be in writing to Director, Office of Innovation, Technology & Alliances, the University of California, San Francisco.
+
+
+The Content uses third party resources listed below(“Third Party Resources”). Certain licenses attach to Third Party Resources and by using Content you agree to abide by those licenses.
+Third party code          Link                              License type
+jquery                    https://jquery.com/               MIT
+svg.js                    http://svgjs.com/                 MIT
+d3                        http://d3js.org/                  BSD
+underscore                http://underscorejs.org/          Open Source
+bootstrap                 http://getbootstrap.com/          MIT
+chroma                    http://old.driven-by-data.net/    BSD
+sinatra                   http://www.sinatrarb.com/         Open Source
+slim                      http://slim-lang.com/             Open Source
+DataMapper                http://datamapper.org/            Open Source
+
+
+THIS CONTENT IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
