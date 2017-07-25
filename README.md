@@ -21,7 +21,7 @@ A **Sa**mple **Ma**nagement **Sy**stem for 96 well plates, including robotic tra
 
 ### 3-Step Code Installation
   ```
-  $ git clone https://github.com/lucidv01d/samasy.git
+  $ git clone https://github.com/wittelab/samasy.git
   $ cd samasy && bundle
   $ rackup
   ```
