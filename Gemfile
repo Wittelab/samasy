@@ -4,37 +4,37 @@ ruby '2.0.0'
 
 
 # Sinatra related gems
-gem 'sinatra'
-gem 'sinatra-contrib'
-gem 'sinatra-flash'
-gem 'rack'
+gem 'sinatra', '1.4.5'
+gem 'sinatra-contrib', '1.4.2'
+gem 'sinatra-flash', '0.3.0'
+gem 'rack', '1.5.2'
 
 # User Auth
-gem 'warden'
+gem 'warden', '1.2.3'
 
 # Template engines (css, js, html)
-gem 'sass'
-gem 'slim'
+gem 'sass', '3.4.3'
+gem 'slim', '2.0.3'
 
 # Simple key/value store
-gem 'daybreak'
+gem 'daybreak', '0.3.0'
 
 # DB support
-gem 'data_mapper'
-#gem "pg"
-#gem "dm-postgres-adapter"
-#gem "mysql"
-#gem "dm-mysql-adapter"
-gem 'sqlite3'
-gem 'dm-sqlite-adapter'
+gem 'data_mapper', '1.2.0'
+#gem 'pg'
+#gem 'dm-postgres-adapter'
+#gem 'mysql'
+#gem 'dm-mysql-adapter'
+gem 'sqlite3', '1.3.9'
+gem 'dm-sqlite-adapter', '1.2.0'
 
 # Spreadsheet support (GeneTitan Files)
-gem 'spreadsheet'
+gem 'spreadsheet', '1.0.0'
 
 # Development Gems
 group :development do
-	gem 'pry-debugger'
-	gem 'racksh'
-	gem 'ruby-progressbar'
-	gem 'shotgun'          # Auto reloads ruby file changes 
+	gem 'pry-debugger', '0.2.2'
+	gem 'racksh', '1.0.0'
+	gem 'ruby-progressbar', '1.5.1'
+	gem 'shotgun', '0.9'          # Auto reloads ruby file changes 
 end
