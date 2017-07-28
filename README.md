@@ -26,3 +26,8 @@ A **Sa**mple **Ma**nagement **Sy**stem for 96 well plates, including robotic tra
   $ rackup
   ```
   You can now point your browser to ```http://localhost:9292``` and follow the on screen directions
+
+### Try A Live Demo!
+[http://samasy.wittelab.ucsf.edu/](http://samasy.wittelab.ucsf.edu/)  
+username: _user@samasy.com_  
+password: _demo_  
