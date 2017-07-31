@@ -1,3 +1,4 @@
+.DS_Store
 /db/daybreak.db
 /db/samasy.db
 /db/gene_titan_files/*

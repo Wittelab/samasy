@@ -610,9 +610,8 @@ class App < Sinatra::Base
 	#                                 User Auth                                  #
 	##############################################################################
 	get '/auth/login' do
-		@message ||= "Please type in your login information"
-		#@full_width = true
-		slim :'slim/_login', :layout => :"slim/layout"
+		@message ||= "Samasy Login"
+		slim :'slim/_login'
 	end
 
 	post '/auth/login/verify' do
@@ -653,7 +652,8 @@ class App < Sinatra::Base
 	get '/auth/logout' do
 		env['warden'].logout
 		session.delete :message
-		slim :'slim/_logout', :layout => :"slim/layout"
+		@message ||= "You've been logged out"
+		slim :'slim/_login'
 	end
 
 	post '/auth/unauthenticated' do
