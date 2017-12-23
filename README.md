@@ -15,7 +15,7 @@ A **Sa**mple **Ma**nagement **Sy**stem for 96 well plates, including robotic tra
   ```
 ### Install System Libraries and Ruby Gems (For a Debian based system)
   ```
-  $ sudo apt-get install git libsqlite3-dev
+  $ sudo apt-get install git libsqlite3-dev # brew install git sqlite3 on a Mac
   $ gem install bundler rack
   ```
 
