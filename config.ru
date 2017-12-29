@@ -13,7 +13,8 @@ require 'securerandom'
 # Template engines
 require 'slim'
 require 'sass'
-
+# Histogram building
+require 'histogram/array'
 
 ### Run Environment Configuration
 configure :development do
@@ -38,7 +39,7 @@ use Rack::Session::Cookie, :key => 'samasy', :path => '/', :expire_after => 1440
 
 ### Setup Datamapper
 #DataMapper.setup(:default, ENV['DATABASE_URL'] || 'mysql://samasy:platedb@localhost/samasy')
-DataMapper.setup(:default, ENV['DATABASE_URL'] || 'sqlite:db/samasy.db')
+DataMapper.setup(:default, ENV['DATABASE_URL'] || 'sqlite3:db/samasy.db')
 
 
 

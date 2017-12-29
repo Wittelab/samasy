@@ -1,0 +1,109 @@
+div style="height: 30%;"
+  div style="width: 100%" class="choice" 
+    span Using:
+    select id="by"
+      option value="Plate"  Plate
+      option value="Batch"  Batch
+
+  div style="width: 100%" class="choice"
+    span Batch/Plate ID:
+    select id="id"
+
+  div style="width: 100%" class="choice"
+    span Series*:
+    select id="serie"
+
+  div style="width: 100%" class="choice"
+    span Attribute <sup>†</sup>:
+    select id="attrib"
+
+  div style="width: 100%" 
+    div style="font-size: 10px" * Only non-numeric attributes can be used for series. 
+    div style="font-size: 10px" <sup>†</sup> Numeric attributes are divided into 10 bins with midpoints.
+    
+
+javascript:
+  $(document).ready(function()
+  {
+    // Update the plate/batch list
+    function update_ids(callback){
+      var choice = $("#by").val().toLowerCase(); // Should start with 'plate'
+      $.getJSON('/json/'+choice+'/ids', function (data) {
+        $('#id').empty();
+        data.forEach(function(item, index) {
+          $('#id').append('<option value="'+item+'">'+item+'</option>');
+        });
+        if (callback){callback();}
+      });
+    }
+
+    // Update series list
+    function update_series(callback){
+      var value = $('#serie').val();
+      $.getJSON('json/attributes', function (data) {
+        var options = _.uniq(_.pluck(data, 'attrib'));
+        $('#serie').empty();
+        $('#serie').append('<option value="None">None</option>');
+        options.forEach(function(item, index) {
+          try {
+            // Make sure the item is not an integer
+            if (!_.contains(_.pluck(_.where(data, {typeGuess: 'integer'}), 'attrib'), item))
+              $('#serie').append('<option value="'+item+'">'+item+'</option>');
+          }
+          catch(err) {
+            console.log("Error trying to detect attribute type for series dropdown population.")
+          }
+        });
+        if (callback){callback();}
+      });
+    }
+
+    // Update the attribute list
+    function update_attribs(callback){
+      var serie = $('#serie').val();
+      $.getJSON('json/attributes', function (data) {
+        var options = _.uniq(_.pluck(data, 'attrib'));
+        $('#attrib').empty();
+        options.forEach(function(item, index) {
+          if (item!=serie)
+            $('#attrib').append('<option value="'+item+'"> '+item+'</option>');
+        });
+        if (callback){callback();}
+      });
+    }
+
+    // Get data used to update the distribution chart 
+    function update_distribution(){
+      $.ajax({
+        type: "POST",
+        url: '/json/distribution',
+        data: {
+                'by'     : $('#by').val(),
+                'id'     : $('#id').val(),
+                'serie'  : $('#serie').val(),
+                'attrib' : $('#attrib').val()
+              },
+        success: function(data){
+          update_chart(data); // Found in _distribution.slim
+        },
+        dataType: 'json',
+      });
+    }
+    
+    // Initially populate the lists and generate the distribution
+    update_ids(function() { 
+      update_series(function() {
+        update_attribs(function() {
+          update_distribution();
+        });
+      });
+    });
+    $('#content').delay(50).fadeIn(100);
+
+    // Attach functionality for when any input changes
+    $('#by').change(function(){ update_ids(function() { update_distribution() }); });
+    $('#id').change(function(){ update_distribution(); });
+    $('#serie').change(function(){ update_attribs(function(){ update_distribution(); }); });
+    $('#attrib').change(function(){ update_distribution(); });
+
+  });

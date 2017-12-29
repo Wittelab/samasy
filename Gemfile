@@ -31,6 +31,9 @@ gem 'dm-sqlite-adapter', '1.2.0'
 # Spreadsheet support (GeneTitan Files)
 gem 'spreadsheet', '1.0.0'
 
+# Histogram for generating histograms
+gem 'histogram', '0.2.4.1'
+
 # Development Gems
 group :development do
 	gem 'pry-debugger', '0.2.2'

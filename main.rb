@@ -132,6 +132,15 @@ class App < Sinatra::Base
 		redirect "/batch"
 	end
 
+
+	# Distribution view entry point: generates data distribution for a plate/batch
+	get '/distribution' do
+		env['warden'].authenticate!
+		@distribution = true
+		slim :"slim/_distribution", :layout => :"slim/layout"
+	end
+
+
 	post '/add/user' do
 		# NOTE: /auth/create is used to create the first admin user to seperate out the code logic from this function
 
@@ -452,6 +461,99 @@ class App < Sinatra::Base
 		return sample.attributes.merge({well: well.short, realized: realized, from:from, to:to}).to_json
 	end
 
+	get '/json/attributes' do
+		content_type :json
+		response = Coding.all(:fields => [:id, :attrib, :value, :typeGuess])
+		response.to_json()
+	end
+
+	post '/json/distribution' do
+		by     = params[:by]
+		id     = params[:id]
+		serie  = params[:serie]
+		attrib = params[:attrib]
+		
+		# Get the series data type
+		begin
+			serie_data_type = Coding.first(:attrib => serie)[:typeGuess]
+		rescue 
+			serie_data_type = 'string'
+		end
+
+		# Get the attrib data type
+		begin
+			attrib_data_type = Coding.first(:attrib => attrib)[:typeGuess]
+		rescue 
+			attrib_data_type = 'string'
+		end
+
+		#binding.pry
+
+		# Try to get all sample values
+		if by == "Plate"
+			begin 
+				plate   = Plate.first(:plateID => id)
+				samples = plate.samples(:fields => ['attribs']).map(&:attribs)
+			rescue 
+				return {}
+			end
+		elsif by == "Batch"
+			begin
+				batch   = Batch.first(:batchID => id)
+				samples = batch.samples.collect { |x| x.attribs }
+			rescue
+				return {}
+			end
+		# Silently fail otherwise
+		else
+			return {}
+		end
+
+		# Get unique series
+		chart_type = nil
+		labels     = nil
+		datasets   = []
+		series     = serie=="None" ? ['All'] : samples.map{|s| s[serie]}.uniq
+
+		# Different chart type and histogram behavior depending on the datatype
+		if attrib_data_type=='string' or attrib_data_type=='boolean'
+			# Make a bar chart
+			chart_type = 'bar'
+			# Generate labels
+			labels = samples.map{|s| s[attrib]}.uniq.map(&:to_s).sort
+			for g in series
+				# And collect values, counting occurences of each
+				s = samples.map{|s| s[attrib] if g=="All" or s[serie]==g}.compact
+				s = s.each_with_object(Hash.new(0)) { |val,counts| counts[val.to_s] += 1 }
+				# Gather and parse data
+				data = []
+				# Attribute labels
+				for l in labels
+					data.push(s[l.to_s])
+				end
+				# Label here refers to the series label
+				datasets.push({label: g.to_s.capitalize, data: data})
+			end
+			labels.map!(&:capitalize)
+		# If the data is continuous
+		elsif attrib_data_type=='integer'
+			#chart_type = 'line'
+			chart_type = 'bar'
+			labels = samples.map{|s| s[attrib]}.histogram(10)[0]
+			for g in series
+				s = samples.map{|s| s[attrib] if g=="All" or s[serie]==g}.compact
+				_, data = s.histogram(labels)
+				# Label here refers to the series label
+				datasets.push({label: g.to_s.capitalize, data: data})
+			end
+		end
+
+		obj = {
+			type: chart_type,
+			data: {labels: labels, datasets: datasets }
+		}
+		return obj.to_json
+	end
 
 	post '/json/attributes/plates' do
 		plates   = params['plates']
@@ -493,6 +595,17 @@ class App < Sinatra::Base
 		return values.to_json
 	end
 
+	get '/json/plate/ids' do
+		content_type :json
+		response = Plate.all(:fields => [:plateID]).map(&:plateID).sort()
+		response.to_json
+	end
+
+	get '/json/batch/ids' do
+		content_type :json
+		response = Batch.all(:fields => [:batchID]).map(&:batchID).sort()
+		response.to_json
+	end
 
 	get '/json/plate/:plate' do
 		content_type :json
@@ -527,7 +640,6 @@ class App < Sinatra::Base
 		response.merge(plate.attributes)
 		return response.to_json
 	end
-
 
 
 

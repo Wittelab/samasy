@@ -1,0 +1,76 @@
+link type="text/css" href="/css/distribution.css" rel="stylesheet" media="screen"
+div id="header"
+  
+div
+  canvas id="distribution" width="800" height="450"
+
+
+
+
+javascript:
+  var chart;
+  function update_chart(data){
+    var numColors  = data.data.datasets.length;
+    //var baseColors = chroma.scale(['#fafa6e','#2A4858']).mode('lch').colors(numColors)
+    //var baseColors = chroma.scale('Spectral').classes(numColors).colors();
+    //var baseColors = chroma.scale(['yellow', '008ae5']).colors(numColors);
+    //var baseColors = chroma.scale('GnBu').classes(numColors).colors().reverse();
+    var baseColors = chroma.bezier(['#fdd652', 'lightgreen', '#1e5ab7']).scale().colors(numColors);
+
+    _.each(data.data.datasets, function (group, group_i) { 
+      var backs   = new Array();
+      var borders = new Array();
+      _.each(group.data, function (val, val_i, d) {
+        darken_by = parseInt(3*(val_i/(d.length)))
+        darken_by = 0
+        backs.push(chroma(baseColors[group_i]).darken(darken_by).hex());
+        borders.push(chroma(baseColors[group_i]).darken(darken_by+2).hex());
+        //borders.push(chroma(baseColors[group_i]).darken(5).hex())
+      });
+      group['backgroundColor'] = backs;
+      group['borderColor'] = borders;
+      group['borderWidth'] = 1;
+    });
+    console.log(data.data.datasets);
+
+    var ctx = document.getElementById("distribution").getContext('2d');
+    if (typeof chart !== "undefined") {chart.destroy();}
+    chart = new Chart(ctx, {
+      type: data.type,
+      data: data.data,  // What to update
+      options: {
+        elements: { point: { radius: 0 } },
+        scales: {
+          yAxes: [{
+            gridLines: { display:false },
+            display: true,
+            scaleLabel: {
+                display: true,
+                labelString: 'Count'
+            },
+            ticks: {
+                suggestedMax: 1,    // minimum will be 0, unless there is a lower value.
+                // OR //
+                beginAtZero: true   // minimum value will be 0.
+            }
+          }],
+          xAxes: [{
+            gridLines: { display:false },
+            display: true,
+            scaleLabel: {
+                display: true,
+                labelString: $('#attrib').val()
+            },
+            ticks: {
+                maxRotation: 90,
+                minRotation: 45
+            }
+          }],
+        },
+        legend: {
+            display: true,
+            //text: $('#serie').val()
+        },
+      }
+    });
+  }
