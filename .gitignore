@@ -2,6 +2,7 @@
 /db/daybreak.db
 /db/samasy.db
 /db/gene_titan_files/*
+!db/.gitkeep 
 
 /tmp/*
 /logs/*
