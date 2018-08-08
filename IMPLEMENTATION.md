@@ -15,9 +15,9 @@ This software was chosen based on its usage license (free), ease of use, and gen
 
 ## The Samasy Application and Components
 
-Samasy is implemented in the Ruby programming language using a web application framework called Sinatra. Web application frameworks are responsible for taking requests from a web browser, deciding what actions to perform (often involves processing information from a database), and rendering responses back to the browser (typically a web page). Conceptually, frameworks often follow a MCV (Model Controller View) paradigm. The model specifies how the application’s data is structured and stored (eg. database) and the view how it is displayed (eg. a web page or data structure). The controller directs this process and logical flow, intercepting web browser requests and serving back appropriate responses. 
+Samasy is implemented in the Ruby programming language using a web application framework called Sinatra. Web application frameworks are responsible for taking requests from a web browser, deciding what actions to perform (often involves processing information from a database), and rendering responses back to the browser (typically a web page). Conceptually, frameworks often follow a MVC (Model View Controller) paradigm. The model specifies how the application’s data is structured and stored (eg. database) and the view how it is displayed (eg. a web page or data structure). The controller directs this process and logical flow, intercepting web browser requests and serving back appropriate responses. 
 
-
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/MVC-Process.svg/1200px-MVC-Process.svg.png" width=400>
 
 In addition to serving data to the user’s browser, Sinatra also serves code in the form of javascript, which allows the user to interact with the page dynamically. Javascript is typically served with the relevant view, though sometimes it is sent as a separate response if the code is used across several rendered views. 
 
