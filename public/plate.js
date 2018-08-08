@@ -141,6 +141,24 @@ function generate_color_scheme(attrib, plates)
 			colorscheme[undefined] = undef
 			// For one color, colorscheme defaults to a red value, replace with aquablue
 			if (values.length==1){	colorscheme[values[0]] = "#28A8E0"; }
+			// Better contrast for 2 valued attributes
+			if (values.length==2){
+				colorscheme[values[0]] = "#28A8E0";
+				colorscheme[values[1]] = "#fee08b";
+			}
+			// Special override to assign colors names to actual colors for colortest
+			if (attrib=="Color")
+				colorscheme={
+					'Red': "#d53e4f",
+					'Gold': "#fee08b",
+					'Green': "#66c2a5",
+					'Blue': "#3288bd",
+					'Black': "#000000",
+					'N/A': "#eee",
+					'null': "#eee",
+					'Used': "#bbb",
+					undefined: "#eee"
+				};
 		},
 		error: function(error) { console.log("Server error!") },
 		async: false

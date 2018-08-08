@@ -1,0 +1,201 @@
+SampleID	PlateID	Well	Color
+Blue_001	Source1	A01	J
+Black002	Source1	A02	L
+Blue_003	Source1	A07	J
+Blue_004	Source1	A08	J
+Empty005	Source1	A09	
+Gold_006	Source1	A12	F
+Black007	Source1	B07	L
+Blue_008	Source1	B09	J
+Blue_009	Source1	B10	J
+Green010	Source1	C02	I
+Blue_011	Source1	C03	J
+Empty012	Source1	D01	
+Green013	Source1	D02	I
+Blue_014	Source1	D10	J
+Green015	Source1	E01	I
+Black016	Source1	E02	L
+Blue_017	Source1	E03	J
+Blue_018	Source1	E08	J
+Green019	Source1	E09	I
+Blue_020	Source1	E11	J
+Green021	Source1	F03	I
+Green022	Source1	F08	I
+Blue_023	Source1	G03	J
+Black024	Source1	G05	L
+Blue_025	Source1	G08	J
+Green026	Source1	G10	I
+Green027	Source1	G11	I
+Blue_028	Source1	H01	J
+Black029	Source1	H06	L
+Green030	Source1	H07	I
+Blue_031	Source1	H10	J
+Green032	Source1	H11	I
+Green033	Source2	A02	I
+Blue_034	Source2	A03	J
+Blue_035	Source2	A05	J
+Blue_036	Source2	A07	J
+Empty037	Source2	A11	
+Blue_038	Source2	B02	J
+Blue_039	Source2	B03	J
+Blue_040	Source2	B04	J
+Green041	Source2	B07	I
+Green042	Source2	B09	I
+Empty043	Source2	B11	
+Green044	Source2	B12	I
+Blue_045	Source2	C02	J
+Black046	Source2	C05	L
+Green047	Source2	C07	I
+Green048	Source2	C08	I
+Empty049	Source2	C09	
+Black050	Source2	C12	L
+Blue_051	Source2	D01	J
+Green052	Source2	D03	I
+Blue_053	Source2	D06	J
+Empty054	Source2	D08	
+Green055	Source2	E02	I
+Empty056	Source2	E05	
+Green057	Source2	E06	I
+Gold_058	Source2	E07	F
+Green059	Source2	E11	I
+Black060	Source2	F04	L
+Empty061	Source2	F07	
+Green062	Source2	F12	I
+Green063	Source2	G02	I
+Green064	Source2	G04	I
+Blue_065	Source2	G10	J
+Blue_066	Source2	H01	J
+Green067	Source2	H07	I
+Blue_068	Source2	H11	J
+Blue_069	Source2	H12	J
+Black070	Source3	A03	L
+Empty071	Source3	A05	
+Green072	Source3	A06	I
+Black073	Source3	A11	L
+Blue_074	Source3	A12	J
+Green075	Source3	B01	I
+Green076	Source3	B08	I
+Empty077	Source3	B11	
+Green078	Source3	C06	I
+Blue_079	Source3	C08	J
+Blue_080	Source3	C12	J
+Empty081	Source3	D01	
+Blue_082	Source3	D03	J
+Gold_083	Source3	E01	F
+Empty084	Source3	E10	
+Empty085	Source3	E11	
+Blue_086	Source3	F04	J
+Black087	Source3	F05	L
+Black088	Source3	F07	L
+Green089	Source3	F09	I
+Empty090	Source3	G04	
+Green091	Source3	G07	I
+Black092	Source3	G08	L
+Black093	Source3	G10	L
+Green094	Source3	G12	I
+Green095	Source3	H02	I
+Green096	Source3	H04	I
+Green097	Source3	H06	I
+Blue_098	Source3	H07	J
+Black099	Source3	H10	L
+Green100	Source3	H12	I
+Gold_101	Source4	A01	F
+Gold_102	Source4	A02	F
+Gold_103	Source4	A03	F
+Gold_104	Source4	A04	F
+Gold_105	Source4	A05	F
+Gold_106	Source4	A06	F
+Blue_107	Source5	A02	J
+Empty108	Source5	A04	
+Blue_109	Source5	A09	J
+Black110	Source5	A10	L
+Empty111	Source5	A11	
+Empty112	Source5	B01	
+Blue_113	Source5	B04	J
+Empty114	Source5	B07	
+Blue_115	Source5	B09	J
+Empty116	Source5	C01	
+Green117	Source5	C06	I
+Blue_118	Source5	C07	J
+Green119	Source5	C08	I
+Green120	Source5	D06	I
+Green121	Source5	D10	I
+Blue_122	Source5	D11	J
+Blue_123	Source5	D12	J
+Blue_124	Source5	E03	J
+Black125	Source5	E05	L
+Blue_126	Source5	E07	J
+Blue_127	Source5	E09	J
+Black128	Source5	E12	L
+Green129	Source5	F01	I
+Empty130	Source5	F02	
+Blue_131	Source5	F03	J
+Empty132	Source5	F06	
+Black133	Source5	G02	L
+Green134	Source5	G03	I
+Green135	Source5	G04	I
+Green136	Source5	G06	I
+Green137	Source5	G07	I
+Green138	Source5	G08	I
+Green139	Source5	G10	I
+Empty140	Source5	G12	
+Green141	Source5	H02	I
+Blue_142	Source5	H03	J
+Blue_143	Source5	H05	J
+Empty144	Source5	H07	
+Black145	Source5	H08	L
+Blue_146	Source5	H10	J
+Blue_147	Source6	A02	J
+Blue_148	Source6	A03	J
+Green149	Source6	A06	I
+Empty150	Source6	A10	
+Blue_151	Source6	A12	J
+Empty152	Source6	B01	
+Blue_153	Source6	B02	J
+Blue_154	Source6	B03	J
+Blue_155	Source6	B05	J
+Green156	Source6	B06	I
+Green157	Source6	B09	I
+Blue_158	Source6	B11	J
+Black159	Source6	B12	L
+Empty160	Source6	C03	
+Blue_161	Source6	C07	J
+Green162	Source6	C10	I
+Blue_163	Source6	C12	J
+Green164	Source6	D01	I
+Green165	Source6	D02	I
+Black166	Source6	D03	L
+Empty167	Source6	D04	
+Blue_168	Source6	D06	J
+Black169	Source6	D09	L
+Gold_170	Source6	D10	F
+Green171	Source6	D11	I
+Black172	Source6	E01	L
+Green173	Source6	E04	I
+Blue_174	Source6	E05	J
+Green175	Source6	E06	I
+Green176	Source6	E07	I
+Empty177	Source6	E08	
+Blue_178	Source6	E10	J
+Green179	Source6	E11	I
+Green180	Source6	F03	I
+Blue_181	Source6	F11	J
+Green182	Source6	G01	I
+Green183	Source6	G02	I
+Gold_184	Source6	G05	F
+Green185	Source6	G06	I
+Green186	Source6	G11	I
+Blue_187	Source6	G12	J
+Empty188	Source6	H02	
+Blue_189	Source6	H03	J
+Blue_190	Source6	H04	J
+Empty191	Source6	H06	
+Green192	Source6	H07	I
+Green193	Source6	H08	I
+Empty194	Source6	H09	
+Empty195	Source6	H10	
+Green196	Source6	H12	I
+Red__197	Control1	A01	A
+Red__198	Control1	A02	A
+Red__199	Control1	A03	A
+Red__200	Control1	A04	A

@@ -7,7 +7,7 @@ ruby '2.0.0'
 gem 'sinatra', '1.4.5'
 gem 'sinatra-contrib', '1.4.2'
 gem 'sinatra-flash', '0.3.0'
-gem 'rack', '1.5.2'
+gem 'rack', '1.5.4'
 
 # User Auth
 gem 'warden', '1.2.3'
