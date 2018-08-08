@@ -10,9 +10,9 @@ For optimal performance the following software stack is recommended:
 * Ruby&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https://www.ruby-lang.org/en/  
 * Sinatra&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;http://www.sinatrarb.com/  
 
-This software was chosen based on its usage license (free), ease of use, and general community support. Of these, only Ruby and Sinatra are required. Ubuntu as an operating system is recommended as the installation of software packages is described using Ubuntu’s apt-get command. The use of nginx as a server as opposed to Ruby’s rack is optional, but reflects a choice between optimizing ease-of-use (rack) and increased security, functionality, and performance (nginx). As for choice of database, the software framework is agnostic-- PostgreSQL or MySQL are equally acceptable over Sqlite3, but require several additional steps to configure. Simple configuration was prefered in all cases to get users up and running as quickly as possible. 
-
-
+This software was chosen based on its usage license (free), ease of use, and general community support. Of these, only Ruby and Sinatra are required. Ubuntu as an operating system is recommended as the installation of software packages is described using Ubuntu’s apt-get command. The use of nginx as a server as opposed to Ruby’s rack is optional, but reflects a choice between optimizing ease-of-use (rack) and increased security, functionality, and performance (nginx). As for choice of database, the software framework is agnostic-- PostgreSQL or MySQL are equally acceptable over Sqlite3, but require several additional steps to configure. Simple configuration was preferred in all cases to get users up and running as quickly as possible. 
+  
+  
 ## The Samasy Application and Components
 
 Samasy is implemented in the Ruby programming language using a web application framework called Sinatra. Web application frameworks are responsible for taking requests from a web browser, deciding what actions to perform (often involves processing information from a database), and rendering responses back to the browser (typically a web page). Conceptually, frameworks often follow a MVC (Model View Controller) paradigm. The model specifies how the application’s data is structured and stored (eg. database) and the view how it is displayed (eg. a web page or data structure). The controller directs this process and logical flow, intercepting web browser requests and serving back appropriate responses. 
