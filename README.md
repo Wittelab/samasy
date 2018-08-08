@@ -34,4 +34,5 @@ username: _user@samasy.com_
 password: _demo_  
   
   
-**Additional details about how Samasy is implemented can be found [here](IMPLEMENTATION.md). If you have been using Samasy for an academic project, please cite the following publication: TBD**
+**Additional details about how Samasy is implemented can be found [here](IMPLEMENTATION.md).  
+If you have been using Samasy for an academic project, please cite the following publication: TBD**
