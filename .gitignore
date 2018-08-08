@@ -7,5 +7,4 @@
 /tmp/*
 /logs/*
 
-Gemfile.lock
 .sass-cache

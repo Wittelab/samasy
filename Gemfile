@@ -20,6 +20,7 @@ gem 'slim', '2.0.3'
 gem 'daybreak', '0.3.0'
 
 # DB support
+gem 'addressable', '2.3.8'
 gem 'data_mapper', '1.2.0'
 #gem 'pg'
 #gem 'dm-postgres-adapter'
@@ -37,6 +38,7 @@ gem 'histogram', '0.2.4.1'
 # Development Gems
 group :development do
 	gem 'pry-debugger', '0.2.2'
+	gem 'rack-test', '0.5'
 	gem 'racksh', '1.0.0'
 	gem 'ruby-progressbar', '1.5.1'
 	gem 'shotgun', '0.9'          # Auto reloads ruby file changes 
