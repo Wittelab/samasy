@@ -50,7 +50,7 @@ That's it!
   
   
 ## Try A Live Demo!
-[http://samasy.wittelab.ucsf.edu/](http://samasy.wittelab.ucsf.edu/)  
+[Link to interface](http://34.94.21.69:9000/)  
 username: _user@samasy.com_  
 password: _demo_  
   
