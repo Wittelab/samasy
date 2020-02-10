@@ -18,7 +18,7 @@ require 'histogram/array'
 
 ### Run Environment Configuration
 configure :development do
-	require 'pry-debugger'
+	#require 'pry-debugger'
 	#DataMapper::Logger.new(STDOUT, :debug)
 end
 
