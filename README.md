@@ -7,10 +7,24 @@ Sample automation and management is increasingly important as the number and siz
 
 *Details about how Samasy is implemented can be found [here](IMPLEMENTATION.md).*  
 
-Please cite the following publication if Samasy is used for an academic project: TBD
-
+Please cite the following publication if Samasy is used for an academic project:  
+[Biotechniques. 2018 Dec;65(6):357-360](https://www.ncbi.nlm.nih.gov/pubmed/30477330)
 
 ## Getting Started 
+
+## Best Method: Docker
+
+Samasy is now dockerized, making installation and running dead simple. To get started, install [docker](https://www.docker.com/) and then run the following commands in your terminal:  
+```bash
+docker # To test that docker is installed properly, should display docker usage and commands
+docker pull ccario83/samasy # To get the samasy docker image
+docker run -p9000:9000 ccario83/samasy:latest # To start the app
+```
+Now point your browswer to http://localhost:9000/ and follow the on-screen instructions.
+
+That's it!
+
+## Manual Method
 ### Install RVM and Ruby 2.0.0
   This software was written and tested with ruby 2.0.0. We recommend installing this version with rvm if you have a another verison on your system:
   ```
