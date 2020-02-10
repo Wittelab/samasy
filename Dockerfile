@@ -29,6 +29,8 @@ RUN /bin/bash -l -c "gem install --source 'https://rubygems.org/' \
 COPY --chown=samasy . .
 RUN bundle
 
+# Expose the app port
 EXPOSE 9000
 
+# Start the app!
 CMD ["bundle", "exec", "rackup", "--host", "0.0.0.0", "-p", "9000"]
