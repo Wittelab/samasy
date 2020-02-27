@@ -60,4 +60,4 @@ The interface showing the *Batch view*:
 
 ## Lightweight 96-well Plate Labeling and/or Color Coding
 See: https://gist.github.com/ccario83/2fc713571e7ddab01486a7f487adeafb  
-![Plate Coloring Gist]()
+![Plate Coloring Gist](example/lightweight.png)
