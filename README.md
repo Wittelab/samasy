@@ -40,7 +40,7 @@ That's it!
   $ gem install bundler
   ```
 
-### Install and run the application (3-steps)
+### Install and Run the Application (3-steps)
   ```
   $ git clone https://github.com/wittelab/samasy.git
   $ cd samasy && bundle
@@ -57,3 +57,7 @@ password: _demo_
   
 The interface showing the *Batch view*:
 ![Image of Interface](interface.png)
+
+## Lightweight 96-well Plate Labeling and/or Color Coding
+See: https://gist.github.com/ccario83/2fc713571e7ddab01486a7f487adeafb  
+![Plate Coloring Gist]()
