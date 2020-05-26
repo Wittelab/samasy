@@ -48,13 +48,6 @@ That's it!
   ```
   You can now point your browser to ```http://localhost:9292``` and follow the on screen directions
   
-  
-## Try A Live Demo!
-[Link to interface](http://34.94.21.69:9000/)  
-username: _user@samasy.com_  
-password: _demo_  
-  
-  
 The interface showing the *Batch view*:
 ![Image of Interface](interface.png)
 
