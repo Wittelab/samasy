@@ -20,7 +20,7 @@ docker # To test that docker is installed properly, should display docker usage 
 docker pull ccario83/samasy # To get the samasy docker image
 docker run -p9000:9000 ccario83/samasy:latest # To start the app
 ```
-Now point your browswer to http://localhost:9000/ and follow the on-screen instructions.
+Now point your browser to http://localhost:9000/ and follow the on-screen instructions.
 
 That's it!
 
