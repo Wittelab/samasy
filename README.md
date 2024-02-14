@@ -54,5 +54,6 @@ The interface showing the *Batch view*:
 
 ## BONUS: Custom coloring of 96-well sample information
 You can use the code gist below to print out 96-well plate maps for your lab notebook, or even to place underneath plates to facilitate pipetting!
-See: https://gist.github.com/ccario83/2fc713571e7ddab01486a7f487adeafb  
+
+Check it out: https://gist.github.com/ccario83/2fc713571e7ddab01486a7f487adeafb  
 ![Plate Coloring Gist](example/lightweight.png)
