@@ -3,7 +3,7 @@
 # Samasy
 A **Sa**mple **Ma**nagement **Sy**stem for 96 well plates, including robotic transfer.
 
-Sample automation and management is increasingly important as the number and size of population-scale and high-throughput projects grow. This is particularly the case in large-scale population studies where sample size is far outpacing the commonly used 96-well plate format. To facilitate management and transfer of samples in this format, we present Samasy, a web-based application for the construction of a sample database, intuitive display of sample and batch information, and facilitation of automated sample transfer or subset. Samasy is designed with ease-of-use in mind, can be quickly set up, and runs in any web browser. 
+Samasy is a web app designed to streamline sample tracking and transfers, ideal for handling samples in 96-well plates. It enables you to import data about your samples and plates, allowing for easy visualization of their information. Additionally, Samasy simplifies sample transfers by generating mapping files for liquid handling robots, reducing the likelihood of errors. If your needs are more basic, Samasy can also serve as a straightforward 96-well plate inventory system. Designed with ease-of-use in mind, Samasy can be quickly set up and is accessible through any web browser
 
 *Details about how Samasy is implemented can be found [here](IMPLEMENTATION.md).*  
 
@@ -20,7 +20,7 @@ docker # To test that docker is installed properly, should display docker usage 
 docker pull ccario83/samasy # To get the samasy docker image
 docker run -p9000:9000 ccario83/samasy:latest # To start the app
 ```
-Now point your browser to http://localhost:9000/ and follow the on-screen instructions. 
+Now point your browser to http://localhost:9000/ and follow the on-screen instructions.  
 **NOTE: You'll have to clone this repo if you'd like to use the example data**
 
 That's it!
