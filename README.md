@@ -14,7 +14,7 @@ Please cite the following publication if Samasy is used for an academic project:
 
 ### Best and Easiest Method: Docker
 
-Samasy is now dockerized, making installation and running super simple simple. To get started, install [docker](https://www.docker.com/) and then run the following commands in your terminal:  
+Samasy is dockerized so getting up and running is simple. Assuming you already have [docker](https://www.docker.com/) installed, run the following commands in a terminal:  
 ```bash
 docker # To test that docker is installed properly, should display docker usage and commands
 docker pull ccario83/samasy # To get the samasy docker image
